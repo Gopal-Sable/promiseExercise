@@ -16,20 +16,21 @@
 console.log("Program Started");
 const promise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    return resolve();
+    return resolve("Step 1 complete");
   }, 3000);
 });
 
+function promise2() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      return resolve("Step 2 Complete");
+    }, 3000);
+  });
+}
 console.log(promise);
 console.log("Program in progress...");
 promise
-  .then(() => console.log("Step 1 complete"))
-  .then(() => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        return resolve("Step 2 Complete");
-      }, 3000);
-    });
-  })
+  .then((res) => console.log(res))
+  .then(() => promise2())
   .then((res) => console.log(res))
   .catch(() => console.log("Program failure"));
