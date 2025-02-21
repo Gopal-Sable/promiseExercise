@@ -38,28 +38,24 @@ const promise = new Promise((resolve, reject) => {
   }, 5000);
 });
 
+function promise2(message, time) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`${message} promise chain complete!`);
+    }, time * 1000);
+  });
+}
+
 console.log(promise);
 console.log("Program in progress...");
 promise
   .then((res) => console.log(res))
-  .then(() => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("First promise chain complete!");
-      }, 5000);
-    });
-  })
+  .then(() => promise2("First", 5))
   .then((res) => console.log(res))
   .catch((err) => console.log(err.message));
 
 promise
   .then((res) => console.log(res))
-  .then(() => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("Second promise chain complete!");
-      }, 10000);
-    });
-  })
+  .then(() => promise2("Second", 10))
   .then((res) => console.log(res))
   .catch((err) => console.log(err.message));
